@@ -7,5 +7,5 @@ Caddyfile for the rsvp-lat.com production server.
 ```bash
 # SSH into the server, then:
 git pull
-caddy reload --config /path/to/Caddyfile
+caddy reload --config /etc/caddy/Caddyfile
 ```
