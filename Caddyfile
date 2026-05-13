@@ -1,0 +1,33 @@
+rsvp-lat.com {
+    @bots header_regexp User-Agent `(?i)(whatsapp|telegrambot|facebookexternalhit|twitterbot|linkedinbot|slackbot|discordbot)`
+
+    handle @bots {
+        reverse_proxy localhost:8001 {
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Host {host}
+        }
+    }
+
+    reverse_proxy localhost:3000
+}
+
+api.rsvp-lat.com {
+    reverse_proxy localhost:8001
+}
+
+*.rsvp-lat.com {
+    tls /etc/caddy/certs/rsvp-lat.pem /etc/caddy/certs/rsvp-lat.key
+
+    @bots header_regexp User-Agent `(?i)(whatsapp|telegrambot|facebookexternalhit|twitterbot|linkedinbot|slackbot|discordbot)`
+
+    handle @bots {
+        reverse_proxy localhost:8001 {
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Host {host}
+        }
+    }
+
+    handle {
+        reverse_proxy localhost:3000
+    }
+}
