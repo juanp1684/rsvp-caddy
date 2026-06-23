@@ -12,6 +12,7 @@ rsvp-lat.com {
 }
 
 api.rsvp-lat.com {
+    header /storage/* Access-Control-Allow-Origin *
     reverse_proxy localhost:8001
 }
 
